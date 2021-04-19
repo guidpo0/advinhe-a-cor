@@ -1,5 +1,7 @@
 const rgbColor = document.querySelector('#rgb-color');
 const colorOptions = document.querySelector('#color-options');
+let correctOption = '';
+const answer = document.querySelector('#answer');
 
 function randomRgb() {
   let rgb = 'rgb(';
@@ -33,8 +35,21 @@ function randomColors() {
       allOptions[index].style.backgroundColor = randomRgb();
     }
   }
+  return rightOption;
 }
+
+[colorOptions].forEach((item) => {
+  item.addEventListener('click', (event) => {
+    if (event.target.classList.contains('ball')) {
+      if (event.target.style.backgroundColor === correctOption) {
+        answer.innerText = 'Acertou!';
+      } else {
+        answer.innerText = 'Errou! Tente novamente!';
+      }
+    }
+  });
+});
 
 rgbColor.innerText = ('Qual é a cor ').concat(randomRgb(), '?');
 optionsContainer(6);
-randomColors();
+correctOption = randomColors();
