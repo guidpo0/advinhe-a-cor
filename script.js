@@ -5,11 +5,6 @@ const answer = document.querySelector('#answer');
 const resetGame = document.querySelector('#reset-game');
 const score = document.querySelector('#score');
 
-function updateCorrectOpition(current) {
-  correctOption = current;
-  return correctOption;
-}
-
 function randomRgb() {
   let rgb = 'rgb(';
   let randomNumber = Math.round(Math.random() * 256);
@@ -42,6 +37,12 @@ function randomColors(rightOption) {
   answer.innerText = 'Escolha uma cor';
 }
 
+function resetGameItems() {
+  correctOption = randomRgb();
+  randomColors(correctOption);
+  rgbColor.innerText = ('Qual é a cor ').concat(correctOption, '?');
+}
+
 function isThisOptionCorrect(event) {
   if (event.target.style.backgroundColor === correctOption) {
     answer.innerText = 'Acertou!';
@@ -55,12 +56,6 @@ function isThisOptionCorrect(event) {
       score.innerText = score.value;
     }
   }
-}
-
-function resetGameItems() {
-  correctOption = updateCorrectOpition(randomRgb());
-  randomColors(correctOption);
-  rgbColor.innerText = ('Qual é a cor ').concat(correctOption, '?');
 }
 
 [colorOptions, resetGame].forEach((item) => {
