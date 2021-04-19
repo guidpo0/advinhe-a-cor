@@ -2,6 +2,12 @@ const rgbColor = document.querySelector('#rgb-color');
 const colorOptions = document.querySelector('#color-options');
 let correctOption = '';
 const answer = document.querySelector('#answer');
+const resetGame = document.querySelector('#reset-game');
+
+function updateCorrectOpition(current) {
+  correctOption = current;
+  return correctOption;
+}
 
 function randomRgb() {
   let rgb = 'rgb(';
@@ -22,23 +28,20 @@ function optionsContainer(numberOfOptions) {
   }
 }
 
-function randomColors() {
+function randomColors(correctOption) {
   const allOptions = document.querySelectorAll('.ball');
-  const rgbBegin = rgbColor.innerText.indexOf('(') - 3;
-  const rgbEnd = rgbColor.innerText.indexOf('?');
-  const rightOption = rgbColor.innerText.substr(rgbBegin, rgbEnd - rgbBegin);
   const randomPosition = Math.round(Math.random() * allOptions.length);
   for (let index = 0; index < allOptions.length; index += 1) {
     if (index === randomPosition) {
-      allOptions[index].style.backgroundColor = rightOption;
+      allOptions[index].style.backgroundColor = correctOption;
     } else {
       allOptions[index].style.backgroundColor = randomRgb();
     }
   }
-  return rightOption;
+  answer.innerText = 'Escolha uma cor';
 }
 
-[colorOptions].forEach((item) => {
+[colorOptions, resetGame].forEach((item) => {
   item.addEventListener('click', (event) => {
     if (event.target.classList.contains('ball')) {
       if (event.target.style.backgroundColor === correctOption) {
@@ -46,10 +49,14 @@ function randomColors() {
       } else {
         answer.innerText = 'Errou! Tente novamente!';
       }
+    } else if (item === resetGame) {
+      correctOption = updateCorrectOpition(randomRgb());
+      randomColors(correctOption);
     }
   });
 });
 
-rgbColor.innerText = ('Qual é a cor ').concat(randomRgb(), '?');
+correctOption = randomRgb();
+rgbColor.innerText = ('Qual é a cor ').concat(correctOption, '?');
 optionsContainer(6);
-correctOption = randomColors();
+randomColors(correctOption);
