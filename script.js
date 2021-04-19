@@ -31,7 +31,7 @@ function optionsContainer(numberOfOptions) {
 
 function randomColors(rightOption) {
   const allOptions = document.querySelectorAll('.ball');
-  const randomPosition = Math.round(Math.random() * allOptions.length);
+  const randomPosition = Math.round(Math.random() * (allOptions.length - 1));
   for (let index = 0; index < allOptions.length; index += 1) {
     if (index === randomPosition) {
       allOptions[index].style.backgroundColor = rightOption;
@@ -45,15 +45,22 @@ function randomColors(rightOption) {
 function isThisOptionCorrect(event) {
   if (event.target.style.backgroundColor === correctOption) {
     answer.innerText = 'Acertou!';
-    score.value = score.value + 3;
+    score.value += 3;
     score.innerText = score.value;
+    resetGameItems();
   } else {
     answer.innerText = 'Errou! Tente novamente!';
     if (score.value > 0) {
-      score.value = score.value - 1;
+      score.value -= 1;
       score.innerText = score.value;
     }
   }
+}
+
+function resetGameItems() {
+  correctOption = updateCorrectOpition(randomRgb());
+  randomColors(correctOption);
+  rgbColor.innerText = ('Qual é a cor ').concat(correctOption, '?');
 }
 
 [colorOptions, resetGame].forEach((item) => {
@@ -61,9 +68,7 @@ function isThisOptionCorrect(event) {
     if (event.target.classList.contains('ball')) {
       isThisOptionCorrect(event);
     } else if (item === resetGame) {
-      correctOption = updateCorrectOpition(randomRgb());
-      randomColors(correctOption);
-      rgbColor.innerText = ('Qual é a cor ').concat(correctOption, '?');
+      resetGameItems();
     }
   });
 });
