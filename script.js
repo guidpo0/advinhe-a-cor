@@ -29,12 +29,12 @@ function optionsContainer(numberOfOptions) {
   }
 }
 
-function randomColors(correctOption) {
+function randomColors(rightOption) {
   const allOptions = document.querySelectorAll('.ball');
   const randomPosition = Math.round(Math.random() * allOptions.length);
   for (let index = 0; index < allOptions.length; index += 1) {
     if (index === randomPosition) {
-      allOptions[index].style.backgroundColor = correctOption;
+      allOptions[index].style.backgroundColor = rightOption;
     } else {
       allOptions[index].style.backgroundColor = randomRgb();
     }
@@ -42,23 +42,28 @@ function randomColors(correctOption) {
   answer.innerText = 'Escolha uma cor';
 }
 
+function isThisOptionCorrect(event) {
+  if (event.target.style.backgroundColor === correctOption) {
+    answer.innerText = 'Acertou!';
+    score.value = score.value + 3;
+    score.innerText = score.value;
+  } else {
+    answer.innerText = 'Errou! Tente novamente!';
+    if (score.value > 0) {
+      score.value = score.value - 1;
+      score.innerText = score.value;
+    }
+  }
+}
+
 [colorOptions, resetGame].forEach((item) => {
   item.addEventListener('click', (event) => {
     if (event.target.classList.contains('ball')) {
-      if (event.target.style.backgroundColor === correctOption) {
-        answer.innerText = 'Acertou!';
-        score.value = score.value + 3;
-        score.innerText = score.value;
-      } else {
-        answer.innerText = 'Errou! Tente novamente!';
-        if (score.value > 0) {
-          score.value = score.value - 1;
-          score.innerText = score.value;
-        }
-      }
+      isThisOptionCorrect(event);
     } else if (item === resetGame) {
       correctOption = updateCorrectOpition(randomRgb());
       randomColors(correctOption);
+      rgbColor.innerText = ('Qual é a cor ').concat(correctOption, '?');
     }
   });
 });
