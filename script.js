@@ -45,10 +45,10 @@ function resetGameItems() {
 
 function isThisOptionCorrect(event) {
   if (event.target.style.backgroundColor === correctOption) {
-    answer.innerText = 'Acertou!';
     score.value += 3;
     score.innerText = score.value;
     resetGameItems();
+    answer.innerText = 'Acertou!';
   } else {
     answer.innerText = 'Errou! Tente novamente!';
     if (score.value > 0) {
