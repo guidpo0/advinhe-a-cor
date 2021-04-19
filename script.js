@@ -3,6 +3,7 @@ const colorOptions = document.querySelector('#color-options');
 let correctOption = '';
 const answer = document.querySelector('#answer');
 const resetGame = document.querySelector('#reset-game');
+const score = document.querySelector('#score');
 
 function updateCorrectOpition(current) {
   correctOption = current;
@@ -46,8 +47,14 @@ function randomColors(correctOption) {
     if (event.target.classList.contains('ball')) {
       if (event.target.style.backgroundColor === correctOption) {
         answer.innerText = 'Acertou!';
+        score.value = score.value + 3;
+        score.innerText = score.value;
       } else {
         answer.innerText = 'Errou! Tente novamente!';
+        if (score.value > 0) {
+          score.value = score.value - 1;
+          score.innerText = score.value;
+        }
       }
     } else if (item === resetGame) {
       correctOption = updateCorrectOpition(randomRgb());
@@ -60,3 +67,5 @@ correctOption = randomRgb();
 rgbColor.innerText = ('Qual é a cor ').concat(correctOption, '?');
 optionsContainer(6);
 randomColors(correctOption);
+score.value = 0;
+score.innerText = score.value;
