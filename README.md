@@ -5,6 +5,7 @@ Projeto desenvolvido durante a formação em desenvolvedor Web Full Stack pela T
 # Boas vindas ao repositório do projeto de adivinhação de Cor!
 
 Esse projeto é um jogo onde o usuário tem que que adivinhar a qual cor se refere o rgb mostrado na tela, a cade acerto o usuário acumula 3 pontos, a cada erro ele perde 1.
+
 Lembrando que esta aplicação corresponde aos meus esforços para melhorar minhas hard skills e soft skills sinta-se à vontade para explorá-la! Feedbacks construtivos são sempre bem vindos!
 Abaixo você poderá encontrar mais informações técnicas sobre este projeto.
 
